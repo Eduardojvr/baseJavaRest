@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Base para projeto java</title>
+</head>
+<body>
+
+<h1>Base configurada para projeto java com api REST e front em Vue.js!</h1>
+
+<div id="exemplo">
+	<h2>Mensagem de exemplo da api: {{ mensagem }}</h2>
+</div>
+
+<script src="resources/js/vue.js" ></script>
+<script src="resources/js/axios.min.js" ></script>
+
+<script>
+	new Vue({
+		el:"#exemplo",
+		data: {
+			mensagem: ''
+		},
+		created: function(){
+			const vm = this;
+			axios.get('rs/exemplo/getExemplo').then(function(response){
+				vm.mensagem = response.data;
+			});
+		}
+	});
+
+
+</script>
+
+</body>
+</html>
