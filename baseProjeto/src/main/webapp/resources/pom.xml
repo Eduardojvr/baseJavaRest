@@ -18,7 +18,7 @@
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
-		<version>8.0.12</version>
+		<version>8.0.16</version>
 	</dependency>
 		
     <dependency>
@@ -51,11 +51,6 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.heroku.sdk</groupId>
-        <artifactId>heroku-maven-plugin</artifactId>
-        <version>3.0.3</version>
       </plugin>
     </plugins>
   </build>
