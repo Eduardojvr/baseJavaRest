@@ -1,36 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<title>Base para projeto java</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>WorthBuys</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="resources/css/business-frontpage.css" rel="stylesheet">
+
 </head>
+
 <body>
 
-<h1>Base configurada para projeto java com api REST e front em Vue.js!</h1>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">WorthBuys</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<div id="exemplo">
-	<h2>Mensagem de exemplo da api: {{ mensagem }}</h2>
-</div>
+  <!--Inserir um carosel-->
+ 
 
-<script src="resources/js/vue.js" ></script>
-<script src="resources/js/axios.min.js" ></script>
+    <div id="app">
+    <!-- /.row -->
+	    <div class="row">
+	      <div class="col-md-4 mb-5" v-for="prod in produtos[0]">
+	        <div class="card h-100">
+	          <img class="card-img-top" style="max-width:300px; max-height:300px;" v-bind:src="prod.urlImg" alt="">
+	          <div class="card-body">
+	            <h4 class="card-title">{{prod.descricao}}</h4>
+	            <p class="card-text" style="color:rgb(144,238,144);">{{prod.preco}}</p>
+	          </div>
+	          <div class="card-footer">
+	            <a v-bind:href="url1+prod.codigo+url2" target="_blank" class="btn btn-warning">Comprar</a>
+	          </div>
+	        </div>
+	      </div>
+	   </div>
+  </div>
+  <!-- /.container -->
 
-<script>
-	new Vue({
-		el:"#exemplo",
-		data: {
-			mensagem: ''
-		},
-		created: function(){
-			const vm = this;
-			axios.get('rs/exemplo/getExemplo').then(function(response){
-				vm.mensagem = response.data;
-			});
-		}
-	});
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; WorthBuys 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
 
+  <!-- Bootstrap core JavaScript -->
+  <script src="resources/vendor/jquery/jquery.min.js"></script>
+  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
 
-</script>
+  <script>
+  	new Vue({
+  		el: "#app",
+  		data: {
+  			produtos : [],
+  			url1:'https://www.amazon.com.br/gp/product/',
+  			url2:'/ref=as_li_ss_il?ie=UTF8&linkCode=li2&tag=worthbuyins-20&linkId=d877e9ca78dabac7f95ac6482247926f&language=pt_BR'
+  			
+  		},
+  		created(){
+  			const vm = this;
+  			
+  			vm.getAllProducts();
+  		},
+  		methods: {
+  			getAllProducts : function (){
+  				const vm =this;
+
+  				axios.get('rs/produto/getAllProducts').then(function(response){
+  					console.log(response.data);
+  					vm.produtos.push(response.data);
+  					console.log(vm.produtos);
+
+  				});
+  				/* var settings = {
+  	  		  		"async": true,
+  	  		  		"crossDomain": true,
+  	  		  		"url": "https://amazon-product-reviews-keywords.p.rapidapi.com/product/search?category=aps&country=US&keyword=iphone",
+  	  		  		"method": "GET",
+  	  		  		"headers": {
+  	  		  			"x-rapidapi-host": "amazon-product-reviews-keywords.p.rapidapi.com",
+  	  		  			"x-rapidapi-key": "a2ba7f209fmsh89735c71ed5fe00p11e3e8jsn3b94184e7b13"
+  	  		  			}
+  	  		  		} */
+  	  			
+  				/* $.ajax(settings).done(function (response) {
+  					vm.produtos.push(response)
+  					console.log(response.Retry-After);
+  					console.log(response.products);
+  					console.log(vm.produtos);
+
+  				}); */
+  			
+  			}
+
+  		}
+  		
+  	});
+  	
+  	
+
+  
+  </script>
 
 </body>
+
 </html>
